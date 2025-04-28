@@ -22,6 +22,18 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/contexts/NoteContext.tsx",
+    "src/app/api/auth/[...nextauth]/route.ts",
+    "src/app/dashboard/[slug]/page.tsx",
+    "src/app/dashboard/search/[slug]/page.tsx",
+    "src/app/dashboard/search/page.tsx",
+    "src/app/dashboard/tags/[note]/page.tsx",
+    "src/app/dashboard/tags/[note]/page.tsx"
+  ],
   "exclude": ["node_modules"]
 }
