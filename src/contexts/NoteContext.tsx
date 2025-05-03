@@ -5,7 +5,6 @@ import { Note } from '@/lib/types';
 import { redirect, usePathname } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { getFonts } from '@/actions/users';
-
 // Define an interface for the context value
 interface NoteContextType {
   data: Note[];
@@ -30,6 +29,8 @@ interface NoteContextType {
     search: string
   ) => void;
   fetchFont: () => void;
+  passwordExited: boolean;
+  setPasswordExited: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Provide a default value using a type assertion. You can also use null and manage it accordingly.
@@ -48,11 +49,17 @@ export const NoteProvider = ({ children }: { children: React.ReactNode }) => {
   const [search, setSearch] = useState<string>('');
   const [font, setFont] = useState<string>('sans');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [passwordExited, setPasswordExited] = useState<boolean>(false);
 
   const fetchFont = async () => {
     try {
-      const result = await getFonts();
-      setFont(result);
+      const res = await getFonts();
+      if (!Array.isArray(res)) {
+        const fontTheme = res?.fontTheme as string;
+        const passwordExists = res?.passwordExists as boolean;
+        setFont(fontTheme);
+        setPasswordExited(passwordExists);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -156,7 +163,9 @@ export const NoteProvider = ({ children }: { children: React.ReactNode }) => {
     handleArchive,
     handleDelete,
     fetchData,
-    fetchFont
+    fetchFont,
+    passwordExited,
+    setPasswordExited
   };
 
   return <NoteContext.Provider value={values}>{children}</NoteContext.Provider>;

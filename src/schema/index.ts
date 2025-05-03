@@ -35,13 +35,13 @@ export const LoginSchema = z.object({
 
 export const NoteSchema = z.object({
   title: z.string().min(1, {
-    message: 'title at least 1 character'
+    message: "It's required"
   }),
   tags: z.array(z.string()).min(1, {
-    message: 'title at least 1 character'
+    message: "It's required"
   }),
   content: z.string().min(1, {
-    message: 'title at least 1 character'
+    message: "It's required"
   })
 });
 

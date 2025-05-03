@@ -21,7 +21,7 @@ import { useState } from 'react';
 
 const NoteSinglePage = ({
   title = '',
-  tags = '',
+  tags = [],
   content = '',
   lastEdited = 'Not Edited Yet',
   archived = true
