@@ -10,7 +10,7 @@ interface TagInputProps {
 }
 
 export default function TagInput({
-  placeholder = 'Add tags...',
+  placeholder = 'eg: #tag1 #tag2 ...',
   onChange,
   className = '',
   tagValue = []

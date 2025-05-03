@@ -5,8 +5,12 @@ import { IoIosLogOut } from 'react-icons/io';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useContext } from 'react';
+import { NoteContext } from '@/contexts/NoteContext';
+import { LockKeyholeIcon } from 'lucide-react';
 
 const SettingsMenu = () => {
+  const { passwordExited } = useContext(NoteContext);
   const path = usePathname();
   const pathName = path.split('/')[path.split('/').length - 1];
   return (
@@ -32,6 +36,19 @@ const SettingsMenu = () => {
           </Link>
         </Button>
       ))}
+      {passwordExited !== false && (
+        <Button
+          variant={'outline'}
+          size={'lg'}
+          className='cursor-pointer flex items-center justify-start px-3 py-2 w-full'
+          asChild
+        >
+          <Link href={`/dashboard/settings/change-password`}>
+            <LockKeyholeIcon />
+            Change Password
+          </Link>
+        </Button>
+      )}
       <hr className='w-full' />
       <form action={() => signOut({ callbackUrl: '/auth/login' })}>
         <Button type='submit' className='cursor-pointer' size={'lg'}>

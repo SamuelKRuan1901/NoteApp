@@ -5,7 +5,6 @@ import {
   Settings,
   SunMoon,
   TypeOutline,
-  LockKeyholeIcon,
   Sun,
   Moon
 } from 'lucide-react';
@@ -48,12 +47,6 @@ export const settingsItems = [
     title: 'Font Themes',
     icon: TypeOutline,
     href: 'font-theme'
-  },
-  {
-    id: 2,
-    title: 'Change Password',
-    icon: LockKeyholeIcon,
-    href: 'change-password'
   }
 ];
 

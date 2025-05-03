@@ -32,8 +32,14 @@ export async function getFonts() {
     if (!user) {
       return [];
     }
-    const fonts = user[0].fontTheme;
-    return fonts;
+    if (user[0].password) {
+      const passwordExists = true as boolean;
+      const fontTheme = user[0].fontTheme as string;
+      return { fontTheme: fontTheme, passwordExists: passwordExists };
+    }
+    const passwordExists = false as boolean;
+    const fontTheme = user[0].fontTheme as string;
+    return { fontTheme: fontTheme, passwordExists: passwordExists };
   } catch (error) {
     console.log(error);
   }
@@ -43,6 +49,10 @@ export async function updateFont(font: string) {
   try {
     await connectDB();
     const session = await getServerSession();
+    const user = await User.findOne({ email: session?.user?.email });
+    if (!user) {
+      await User.create({ email: session?.user?.email, fontTheme: font });
+    }
     await User.updateOne({ email: session?.user?.email }, { fontTheme: font });
     return { status: 200, message: 'Font updated successfully' };
   } catch (error) {
